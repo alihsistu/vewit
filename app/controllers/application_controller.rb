@@ -15,36 +15,36 @@ class ApplicationController < Sinatra::Base
 
   # ===========ALI(posts)=============
   # creates a post
-  post '/post'  do #temp path
-    @post = Post.create(params)
-    @post.user_id = current_user.id
+  post '/tweet'  do #temp path
+    @tweet = Tweet.create(params)
+    @tweet.user_id = current_user.id
 
-    @post.save
-    session[:id] = @post.id
+    @tweet.save
+    session[:id] = @tweet.id
 
     redirect '/'
   end
 
-  delete '/posts/:id' do
-    @post = Post.delete(params[:id])
-    redirect '/' #after post is deleted, it is redirected to home
+  delete '/tweets/:id' do
+    @tweet = Tweet.delete(params[:id])
+    redirect '/' #after tweet is deleted, it is redirected to home
   end
 
-  get '/posts/:id/edit' do #load the edit form
-    @post = Post.find(params[:id])
-    erb :'posts/edit' #temp path for editing the post
+  get '/tweets/:id/edit' do #load the edit form
+    @tweet = Tweet.find(params[:id])
+    erb :'tweets/edit' #temp path for editing the post
   end
 
-  get '/post/:id' do #
-    @post = Post.find(params[:id])
-    erb :'posts/post' #temp path
+  get '/tweet/:id' do #
+    @tweet = Tweet.find(params[:id])
+    erb :'tweets/tweet' #temp path
   end
 
-  patch 'posts/:id' do 
-    @post = Tweet.find(params[:id])
-    @post.description = params[:description]
-    @post.save
-    redirect "/posts/#{@post.id}"
+  patch 'tweets/:id' do 
+    @tweet = Tweet.find(params[:id])
+    @tweet.description = params[:description]
+    @tweet.save
+    redirect "/tweets/#{@tweet.id}"
   end
 
 end
