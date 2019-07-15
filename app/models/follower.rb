@@ -1,5 +1,5 @@
-class User < ActiveRecord::Base
-    has_many :tweets
-    has_many :repliers, through: :tweets
-    has_many :followers
+class Follower < ActiveRecord::Base
+    belongs_to :user_id , {class_name: 'User'}
+    belongs_to :folower_id, {class_name: 'User'}
+
 end

@@ -5,7 +5,7 @@
 
 
 
-    <form class="login100-form validate-form" action="/login" method="post">
+    <form class="login100-form validate-form" action="/login/?" method="post">
       <span class="login100-form-title">
         User Login
       </span>
@@ -34,12 +34,12 @@
         </button>
       </div>
       <br>
-      <% flash.keys.each do |type| %>
+      <%# <% flash.keys.each do |type| %>
       <div class="flash error alert alert-success alert-dismissible logisign mx-auto">
-        <%= flash[:error] %>
+        <%= session[:error] %>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
-      <% end %>
+      <%# <% end %> 
 
 
       <div class="text-center p-t-136">
