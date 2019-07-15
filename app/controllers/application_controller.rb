@@ -52,4 +52,38 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
+  # ===========ALI(posts)=============
+  # creates a post
+  post '/post'  do #temp path
+    @post = Post.create(params)
+    @post.user_id = current_user.id
+
+    @post.save
+    session[:id] = @post.id
+
+    redirect '/'
+  end
+
+  delete '/posts/:id' do
+    @post = Post.delete(params[:id])
+    redirect '/' #after post is deleted, it is redirected to home
+  end
+
+  get '/posts/:id/edit' do #load the edit form
+    @post = Post.find(params[:id])
+    erb :'posts/edit' #temp path for editing the post
+  end
+
+  get '/post/:id' do #
+    @post = Post.find(params[:id])
+    erb :'posts/post' #temp path
+  end
+
+  patch 'posts/:id' do 
+    @post = Tweet.find(params[:id])
+    @post.description = params[:description]
+    @post.save
+    redirect "/posts/#{@post.id}"
+  end
+
 end
