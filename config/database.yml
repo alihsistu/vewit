@@ -1,17 +1,19 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite
+  adapter: postgresql
+  database: twitter_development
   pool: 5
   timeout: 5000
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite
+  adapter: postgresql
+  database: twitter_test
   pool: 5
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite
+  adapter: postgresql
+  database: twitter_production
   pool: 5
   timeout: 5000
+  url: <%= ENV['DATABASE_URL']%>
+  
