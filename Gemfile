@@ -10,6 +10,7 @@ gem 'require_all'
 gem 'shotgun'
 gem 'byebug'
 gem 'bcrypt'
+gem 'sinatra-flash'
 gem 'pg'
 
 
