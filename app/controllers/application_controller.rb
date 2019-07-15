@@ -1,5 +1,5 @@
 class ApplicationController < Sinatra::Base
-  register Sinatra::Flash #For sinatra-flash gem to work
+  register Sinatra::Flash #For sinatra-flash gem to work.
   register Sinatra::ActiveRecordExtension
 
   configure do
