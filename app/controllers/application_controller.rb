@@ -11,46 +11,45 @@ class ApplicationController < Sinatra::Base
   end
 
   # Renders the home or index page
-  get '/' do
-    @message = session[:message]
-    if @message == nil 
-      @message = "Please enter the new url"
-    end
-    erb :home, layout: :layout
-
-  end
-
-  # Renders the sign up/registration page in app/views/registrations/signup.erb
-  get '/registrations/signup' do
-    erb :'/registrations/signup'
-  end
-
-  post '/registrations' do
-    user = User.create(name:params["name"], email:params["email"])
-    user.password = params["psw"]
-    user.save
-    session[:user_id] = user.id
-    puts session[:user_id]
-    redirect '/users/home'
-  end
-  
-  get '/sessions/login' do
-    erb :'/sessions/login'
-  end
-
-  post '/sessions' do
-    user_s = User.find_by(name: params["uname"])
-    if user_s == nil
-      session[:status_message] = "Sorry there is no such user"
-      redirect '/sessions/login'   
-    elsif user_s.password == params["psw"]
-      session[:status_message] = "Welcome back"
-      session[:user_id] = user_s.id
-      redirect '/users/home'
+  get '/signup' do
+    if !logged_in?
+      @user = User.new
+      erb :signup
     else
-      session[:status_message]="Sorry, your username or password is incorrect"
-      redirect '/sessions/login'
+      redirect '/'
     end
+  end
+  post '/signup' do
+    @user = User.new(username: params[:username], password: params[:password])
+    if @user.save
+      session[:user_id] = @user.id
+      redirect '/'
+    else
+      erb :signup
+    end
+  end
+  get '/login' do
+    if !logged_in?
+      erb :login
+    else
+      redirect '/'
+    end
+  end
+  post '/login' do
+   user = User.find_by_username(params[:username])
+   if user && user.authenticate(params[:password])
+    session[:user_id] = user.id
+    redirect '/'
+   else
+    flash[:error] = "Invalid Credentials!"
+    redirect '/login'
+   end
+  end
+  get '/logout' do
+    if logged_in?
+      session.clear
+    end
+    redirect '/'
   end
 
 end
