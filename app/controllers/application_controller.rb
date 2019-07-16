@@ -13,9 +13,6 @@ class ApplicationController < Sinatra::Base
   # Renders the home or index page
   #Removed UserController Code. You can find it it in user_controller.rb under controllers directory. You May remove this comment after reading.
   get '/' do
-<<<<<<< Updated upstream
-    # @tweets = Tweet.all
-=======
     if check_tweets(session[:user_id]) != 0
       tweets = Tweet.where(user_id:user_id)
       @tweets_count = tweets
@@ -26,7 +23,6 @@ class ApplicationController < Sinatra::Base
     @followers = check_followers(@user.username)
     @followings = check_followers(@user.username)
 
->>>>>>> Stashed changes
   	erb :index
   end
   # ===========ALI(tweet)=============
