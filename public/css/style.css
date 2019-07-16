@@ -192,16 +192,25 @@ ul.twPc-Arrange {
 
 #exampleFormControlTextarea1 {
   height: auto;
-  margin-top: -15px;
-  width: 40%;
+  margin-top: 0px;
 }
 
 #whatshap {
-  margin-left: 35px;
-  margin-top: 40px;
+  margin-left: -80px;
+  margin-top: 110px;
 }
 
 .btn.btn-primary.tweet {
   margin-top: 15px;
   background-color: blue;
+}
+
+.trending {
+  margin-left: 35px;
+  margin-top: 30px;
+}
+
+.trendslist {
+  margin-top:20px;
+  width: 75%;
 }
