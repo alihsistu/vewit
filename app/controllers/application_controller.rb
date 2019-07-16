@@ -13,7 +13,20 @@ class ApplicationController < Sinatra::Base
   # Renders the home or index page
   #Removed UserController Code. You can find it it in user_controller.rb under controllers directory. You May remove this comment after reading.
   get '/' do
+<<<<<<< Updated upstream
     # @tweets = Tweet.all
+=======
+    if check_tweets(session[:user_id]) != 0
+      tweets = Tweet.where(user_id:user_id)
+      @tweets_count = tweets
+    else
+      @tweets_count = 0
+    end
+    @user = User.find_by(id:session[:user_id])
+    @followers = check_followers(@user.username)
+    @followings = check_followers(@user.username)
+
+>>>>>>> Stashed changes
   	erb :index
   end
   # ===========ALI(tweet)=============
@@ -80,6 +93,40 @@ class ApplicationController < Sinatra::Base
       !!session[:user_id]
     end
 
+    def check_followers(username)
+      # byebug
+      @user = User.find_by_username(username)
+      @check_followers = Follower.where(following_id:@user.id)
+      if @check_followers.nil?
+        return 0
+      else
+        @check_followers.count
+      end
+    end
+
+    def check_followings(username)
+
+      # username = params[:username]
+      @user = User.find_by_username(username)
+
+      @check_followings = Follower.where(follower_id:@user.id)
+      # using follower_id, access user names of all those current user is following
+      if @check_followings.nil?
+        return 0
+      else
+        @check_followings.count
+      end
+    end
+
+    def check_tweets(user_id)
+      tweets = Tweet.where(user_id:user_id)
+      if !tweets == nil
+        return tweets.count
+      else
+        return 0
+      end
+    end
+
   end
 
   # temporay working place
@@ -137,45 +184,86 @@ class ApplicationController < Sinatra::Base
   end
 
   # this is user progfil page
-  #this page will only display user tweets and timeline followrs etc
-  get '/users/:username' do
+  # this page will only display user tweets and timeline followrs etc
+  get '/user/:username' do
+    # byebug
     username = params[:username]
-    @user_posts = Tweet.where(username: username).order("created_at DESC")
-    @user = User.find(id)
+    @user = User.find_by_username(username)
+    # byebug
+    @following_people = []
+    if check_tweets(@user.id) != 0
+      @user_tweets = Tweet.where(username:username).order("created_at DESC")
+    else
+      @user_tweets = 0
+    end
+    user_followings = Follower.find_by(following_id:@user.id)
+    byebug
+    if user_followings != nil
+      
+      user_followings.each do |following|
+        @following_people<<following.username
+      end
+    end
+    user_followers = Follower.find_by(follower_id:@user_id)
+    if user_followers != nil
+     
+      user_followers.each do |followers|
+        @followers<<followers.username
+      end
+    end
+    @all_users = []
+    people = User.all
+    people.each do |person|
+      @all_users <<person 
+    end
+    # display some random profile
+    @some_users = @all_users.sample(2)
     erb :"users/profile" 
+
+  end
+
+  get '/follow/:username' do
+    @following_person = User.find_by_username(params[:username])
+    # follow = Follower.create(followr_id:session[:user_id],user_id:following.id)
+    # @user = User.find_by_username(username)
+    @user = @following_person
+    User.follow(@following_person.username,current_user)
+    redirect "/user/#{params[:username]}"
+  end
+
+  get '/unfollow/:username' do
+    # @user = User.find_by_username(params[:username])
+    @unfollowing_person = User.find_by_username(params[:username])
+    @user = @following_person
+    User.unfollow(@unfollowing_person.username,current_user)
+    redirect "/user/#{params[:username]}"
   end
 
   get '/users/:username/followers' do
-    @user = User.find_by(username:params[:username])
-    @follower_ids = Follower.where(user_id:@user.id)
-    # using follower_id, access user names of all those following current user
-    if @follower_ids.nil?
-      session[:status_message] = "You do not have current followers. Follow others to get followers"
-      erb :"users/followers" 
+    unless check_followers(params[:username]) == 0
+      @followers = Follower.where(username:username)
     else
-      erb :"users/followers"
+      @followers = 0
     end
-
+    erb :'users/followers'
   end
 
   # thsi route will get a list of users whom that said user is following
   get '/users/:username/following' do
-      username = params[:username]
-      @user = User.find_by_username(username)
-
-      @following = Follower.where(follower_id:@user.id)
-      # using follower_id, access user names of all those current user is following
-      if @following.nil?
-        session[:status_message] = "You not following anyone currently. Follow others to see their tweets"
-        erb :"users/following" 
-      else
-        erb :"users/following"
-      end
+    unless check_followings(params[:username]) == 0
+      @followings = Follower.where(username:username)
+    else
+      @followings = "This person does not follow anyone"
+    end
+    erb :"users/following"
   end
 
 
   get '/search' do
-    @persons = User.search(params[:search])
+    @people = User.search(params[:search])
     erb :'users/search_results'
   end
+
+
+
 end

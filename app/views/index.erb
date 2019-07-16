@@ -25,10 +25,10 @@
 
 		<div class="twPc-divUser">
 			<div class="twPc-divName">
-				<a href="https://twitter.com/">Jane Doe</a>
+				<a href="https://twitter.com/"><%=@user.name%></a>
 			</div>
 			<span>
-				<a href="https://twitter.com/">@<span>janedoe</span></a>
+				<a href="https://twitter.com/">@<span><%=@user.username%></span></a>
 			</span>
 		</div>
 
@@ -37,19 +37,19 @@
 				<li class="twPc-ArrangeSizeFit">
 					<a href="https://twitter.com/" title="9.840 Tweet">
 						<span class="twPc-StatLabel twPc-block">Tweets</span>
-						<span class="twPc-StatValue">10K</span>
+						<span class="twPc-StatValue"><%=@tweets_count%></span>
 					</a>
 				</li>
 				<li class="twPc-ArrangeSizeFit">
 					<a href="https://twitter.com/" title="885 Following">
 						<span class="twPc-StatLabel twPc-block">Following</span>
-						<span class="twPc-StatValue">1,267</span>
+						<span class="twPc-StatValue"><%=@followings%></span>
 					</a>
 				</li>
 				<li class="twPc-ArrangeSizeFit">
 					<a href="https://twitter.com/" title="1.810 Followers">
 						<span class="twPc-StatLabel twPc-block">Followers</span>
-						<span class="twPc-StatValue">2.3M</span>
+						<span class="twPc-StatValue"><%=@followers%></span>
 					</a>
 				</li>
 			</ul>
