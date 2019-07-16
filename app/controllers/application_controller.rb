@@ -174,7 +174,6 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
-  # this is user home page where all tweets from users current user is following will apppear
   get '/users/home' do
     erb :'/users/home'
   end
@@ -220,15 +219,12 @@ class ApplicationController < Sinatra::Base
 
   get '/follow/:username' do
     @following_person = User.find_by_username(params[:username])
-    # follow = Follower.create(followr_id:session[:user_id],user_id:following.id)
-    # @user = User.find_by_username(username)
     @user = @following_person
     User.follow(@following_person.username,current_user)
     redirect "/user/#{params[:username]}"
   end
 
   get '/unfollow/:username' do
-    # @user = User.find_by_username(params[:username])
     @unfollowing_person = User.find_by_username(params[:username])
     @user = @following_person
     User.unfollow(@unfollowing_person.username,current_user)
