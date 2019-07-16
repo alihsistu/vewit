@@ -3,8 +3,8 @@ class ApplicationController < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
   configure do
-  	set :views, "app/views"
-    set :public_dir, "public"
+  	set :views, 'app/views'
+    set :public_folder, 'public'
     #enables sessions as per Sinatra's docs. Session_secret is meant to encript the session id so that users cannot create a fake session_id to hack into your site without logging in. 
     enable :sessions
     set :session_secret, "secret"
@@ -12,7 +12,9 @@ class ApplicationController < Sinatra::Base
 
   # Renders the home or index page
   #Removed UserController Code. You can find it it in user_controller.rb under controllers directory. You May remove this comment after reading.
-
+  get '/' do
+  	erb :index
+  end
   # ===========ALI(posts)=============
   # creates a post
   post '/tweet'  do #temp path
@@ -47,4 +49,15 @@ class ApplicationController < Sinatra::Base
     redirect "/tweets/#{@tweet.id}"
   end
 
+  helpers do 
+
+    def current_user
+      @current_user ||= User.find(session[:user_id])
+    end
+
+    def logged_in?
+      !!session[:user_id]
+    end
+
+  end
 end
