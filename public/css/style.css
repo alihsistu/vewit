@@ -2,3 +2,7 @@
   background-color: blue;
   height: 70px;
 }
+
+.nav-link.btn.btn-outline-warning.active {
+  margin-left: 8px;
+}

@@ -34,12 +34,13 @@
         </button>
       </div>
       <br>
-      <%# <% flash.keys.each do |type| %>
+      
+      <% flash.keys.each do |type| %>
       <div class="flash error alert alert-success alert-dismissible logisign mx-auto">
-        <%= session[:error] %>
+        <%= flash[:error] %>
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       </div>
-      <%# <% end %> 
+      <% end %>
 
 
       <div class="text-center p-t-136">
