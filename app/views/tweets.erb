@@ -1,0 +1,19 @@
+
+<h1 style="text-align:center; padding-top:100px;">Tweets</h1>
+
+<hr>
+<div style="padding:50px;">
+<a href="/create_tweet"><h2>create Tweet</h2></a>
+
+<%@tweets.each do |tweet|%> 
+<%=tweet.description%>
+<%=tweet.created_at%>
+<div>
+<a href="/display_tweet/<%=tweet.id%>"><span class="btn btn-primary">view Tweet</span></a>
+</div>
+<a href="/edit/<%=tweet.id%>"><span class="btn btn-primary">Edit Tweet</span></a>
+</div>
+<a href="/delete/<%=tweet.id%>"><span class="btn btn-danger">Delete Button</span></a>
+<hr>
+<%end%>
+</div>

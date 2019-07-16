@@ -13,28 +13,42 @@ class ApplicationController < Sinatra::Base
   # Renders the home or index page
   #Removed UserController Code. You can find it it in user_controller.rb under controllers directory. You May remove this comment after reading.
   get '/' do
+    # @tweets = Tweet.all
   	erb :index
   end
-  # ===========ALI(posts)=============
-  # creates a post
-  post '/tweet'  do #temp path
+  # ===========ALI(tweet)=============
+  get '/delete/:id' do 
+    @tweet =Tweet.find_by(id:params[:id])
+    @tweet.destroy
+    redirect '/tweets'
+  end
+
+  get '/create_tweet' do
+    erb :create_tweet
+  end
+
+  get '/tweets' do
+    # @reply =Reply.find(session[:reply_id])
+    @tweets = Tweet.all
+    erb :tweets
+  end
+
+  get '/display_tweet/:id' do
+
+    @tweet =Tweet.find(params[:id])
+
+    erb :display
+
+  end
+
+  post '/create_tweet'  do 
     @tweet = Tweet.create(params)
     @tweet.user_id = current_user.id
 
     @tweet.save
     session[:id] = @tweet.id
 
-    redirect '/'
-  end
-
-  delete '/tweets/:id' do
-    @tweet = Tweet.delete(params[:id])
-    redirect '/' #after tweet is deleted, it is redirected to home
-  end
-
-  get '/tweets/:id/edit' do #load the edit form
-    @tweet = Tweet.find(params[:id])
-    erb :'tweets/edit' #temp path for editing the post
+    redirect '/tweets'
   end
 
   get '/tweet/:id' do #
@@ -42,13 +56,20 @@ class ApplicationController < Sinatra::Base
     erb :'tweets/tweet' #temp path
   end
 
-  patch 'tweets/:id' do 
+  post '/tweets/edit/:id' do 
     @tweet = Tweet.find(params[:id])
     @tweet.description = params[:description]
     @tweet.save
-    redirect "/tweets/#{@tweet.id}"
+    redirect "/tweets"
   end
 
+  get '/edit/:id' do
+    @tweet = Tweet.find(params[:id])
+    @des = @tweet.description
+    
+    erb  :'/edit_tweet'
+  end
+  # =====HELPER=====
   helpers do 
 
     def current_user

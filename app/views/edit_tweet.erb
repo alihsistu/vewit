@@ -1,0 +1,12 @@
+
+<h2 style="padding-top:100px;">edit tweet</h2>
+<form action="/tweets/edit/<%=@tweet.id%>" method="POST">
+  <div class="container">
+
+    <hr>
+
+    <label><b>Description</b></label>
+    <input type="text" placeholder="<%=@des%>" name="description" >
+    <button type="submit">TWEET</button>
+</div>
+</form>

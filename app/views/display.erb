@@ -1,0 +1,22 @@
+
+
+<h2 style="padding-top:100px;">
+    <%=@tweet.description%>
+    <%=@tweet.created_at%>
+
+    <a href="/display_tweet/<%=@tweet.id%>"><span class="btn btn-primary">view Tweet</span></a>
+</div>
+
+
+<form action="/reply/<%=session[:user_id]%>/<%=@tweet.id%>" method="POST">
+  <div class="container">
+<h2>reply</h2>
+    <hr>
+
+    <label><b>Reply</b></label>
+    <input type="text" placeholder="Enter reply" name="reply" >
+    <button type="submit">TWEET</button>
+
+</form>
+
+</h2>
