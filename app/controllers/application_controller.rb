@@ -49,6 +49,11 @@ class ApplicationController < Sinatra::Base
     redirect "/tweets/#{@tweet.id}"
   end
 
+  # post "reply/:user_id" do
+  #   @reply = Reply.create()
+
+  # end
+
   helpers do 
 
     def current_user

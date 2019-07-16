@@ -15,19 +15,10 @@ ActiveRecord::Schema.define(version: 2019_07_15_170014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "followers", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "follower_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "replies", force: :cascade do |t|
     t.integer "post_id"
     t.string "replies"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tweets", force: :cascade do |t|
