@@ -3,6 +3,17 @@
   height: 70px;
 }
 
-.nav-link.btn.btn-outline-warning.active {
+.nav-item {
   margin-left: 8px;
+}
+:hover
+.nav-link.btn.btn-outline-light {
+  color: white !important;
+  border: 2px solid white;
+}
+
+.nav-link.btn.btn-outline-light:hover {
+  color: blue !important;
+  background-color: #f8f9fa;
+  border: 2px solid white;
 }
