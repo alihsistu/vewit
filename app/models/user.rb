@@ -5,22 +5,22 @@ class User < ActiveRecord::Base
 
 
     validates_presence_of :name,:username, :email
-    validates :email, uniqueness: true
+    # validates :email, uniqueness: true
 
-    # has_secure_password
+    has_secure_password
     #to use later
 
-    include BCrypt
+    # include BCrypt
   
-    def password
-      @password ||= Password.new(password_hash)
-    end
+    # def password
+    #   @password ||= Password.new(password_hash)
+    # end
   
   
-    def password=(new_password)
-      @password = Password.create(new_password)
-      self.password_hash = @password
-    end
+    # def password=(new_password)
+    #   @password = Password.create(new_password)
+    #   self.password_hash = @password
+    # end
 
 
     def follow!(user)

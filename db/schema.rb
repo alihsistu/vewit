@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_170014) do
     t.string "name"
     t.string "username"
     t.string "email"
-    t.string "password_hash"
+    t.string "password_digest"
     t.integer "post_id"
     t.integer "comment_id"
     t.integer "likes"
