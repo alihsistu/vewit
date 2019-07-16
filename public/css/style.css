@@ -183,3 +183,25 @@ ul.twPc-Arrange {
 }
 
 /* twitter card */
+
+.whatsnew {
+  font-family: Poppins-Bold;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#exampleFormControlTextarea1 {
+  height: auto;
+  margin-top: -15px;
+  width: 40%;
+}
+
+#whatshap {
+  margin-left: 35px;
+  margin-top: 40px;
+}
+
+.btn.btn-primary.tweet {
+  margin-top: 15px;
+  background-color: blue;
+}
