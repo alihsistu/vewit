@@ -136,6 +136,7 @@ class ApplicationController < Sinatra::Base
     else
       redirect '/'
     end
+    # erb :signup
   end
 
   post '/signup' do
@@ -146,6 +147,7 @@ class ApplicationController < Sinatra::Base
     else
       erb :signup
     end
+   
   end
 
   get '/login' do
@@ -191,21 +193,18 @@ class ApplicationController < Sinatra::Base
     else
       @user_tweets = 0
     end
-    user_followings = Follower.find_by(following_id:@user.id)
-    byebug
-    if user_followings != nil
-      
-      user_followings.each do |following|
-        @following_people<<following.username
-      end
-    end
-    user_followers = Follower.find_by(follower_id:@user_id)
-    if user_followers != nil
-     
-      user_followers.each do |followers|
-        @followers<<followers.username
-      end
-    end
+    # user_followings = Follower.find_by(following_id:@user.id)
+    # if user_followings != nil
+    #   user_followings.each do |following|
+    #     @following_people<<following.username
+    #   end
+    # end
+    # user_followers = Follower.find_by(follower_id:@user_id)
+    # if user_followers != nil
+    #   user_followers.each do |followers|
+    #     @followers<<followers.username
+    #   end
+    # end
     @all_users = []
     people = User.all
     people.each do |person|
