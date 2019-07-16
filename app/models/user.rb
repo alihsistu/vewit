@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     has_many :followers, foreign_key: :follower_id, class_name: "Follower", dependent: :destroy
 
 
-    validates_presence_of :name,:username, :email
+    validates_presence_of :username
     # validates :email, uniqueness: true
 
     has_secure_password
